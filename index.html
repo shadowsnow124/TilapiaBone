@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>แผนภาพกระดูกปลานิล</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600&family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#eaf1f8; --muted:rgba(234,241,248,.62); --faint:rgba(234,241,248,.4);
+  --line:rgba(255,255,255,.1); --glass:rgba(255,255,255,.055); --glass2:rgba(255,255,255,.1);
+  --radius:18px; --shadow:0 16px 46px rgba(2,10,22,.45);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);line-height:1.7;
+  font-family:"Noto Sans Thai","Prompt",-apple-system,"Segoe UI",Tahoma,sans-serif;
+  background:#08121c;overflow-x:hidden;font-weight:400;
+}
+/* ---------- พื้นหลัง : น้ำเงินทะเลนุ่ม ---------- */
+.bgfx{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(1100px 680px at 15% -10%,#16344f 0%,transparent 62%),
+  radial-gradient(900px 620px at 92% 6%,#124049 0%,transparent 58%),
+  radial-gradient(900px 700px at 55% 112%,#1a2748 0%,transparent 60%),
+  linear-gradient(165deg,#08121c 0%,#0b1a26 52%,#070f18 100%);}
+.blob{position:fixed;border-radius:50%;filter:blur(100px);z-index:-1;pointer-events:none;will-change:transform}
+.b1{width:500px;height:500px;left:-130px;top:-70px;background:rgba(72,140,205,.26);animation:f1 26s ease-in-out infinite}
+.b2{width:430px;height:430px;right:-110px;top:130px;background:rgba(56,164,158,.22);animation:f2 30s ease-in-out infinite}
+.b3{width:540px;height:540px;left:40%;bottom:-230px;background:rgba(98,116,192,.2);animation:f3 34s ease-in-out infinite}
+@keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(90px,70px) scale(1.12)}}
+@keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-80px,110px) scale(1.09)}}
+@keyframes f3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,-90px) scale(1.15)}}
+
+.wrap{max-width:1320px;margin:0 auto;padding:0 20px}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);
+  backdrop-filter:blur(22px) saturate(130%);-webkit-backdrop-filter:blur(22px) saturate(130%);box-shadow:var(--shadow)}
+
+/* ---------- หัวเรื่องเรียบ ---------- */
+header{padding:64px 0 26px;animation:fadeUp .8s both}
+h1{font-family:"Prompt",sans-serif;font-weight:500;font-size:clamp(26px,3.8vw,40px);
+  margin:0 0 10px;letter-spacing:-.2px;line-height:1.35}
+header p{margin:0;color:var(--muted);font-size:15.5px;max-width:720px;font-weight:300}
+header .rule{height:1px;margin-top:26px;
+  background:linear-gradient(90deg,rgba(125,205,235,.45),rgba(255,255,255,.06) 55%,transparent)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+main{padding-bottom:70px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:13px;margin:22px 0 14px;animation:fadeUp .8s .1s both}
+.toolbar input[type=search]{flex:1 1 240px;min-width:190px;padding:11px 17px;border-radius:13px;
+  border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink);
+  font-family:inherit;font-size:14.5px;outline:none;transition:.28s}
+.toolbar input::placeholder{color:var(--faint)}
+.toolbar input:focus{border-color:rgba(125,205,235,.6);background:rgba(255,255,255,.09);box-shadow:0 0 0 4px rgba(125,205,235,.12)}
+.btn{border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink);
+  padding:10px 17px;border-radius:13px;font-family:inherit;font-size:13.8px;font-weight:500;
+  cursor:pointer;transition:transform .22s,background .28s,border-color .28s}
+.btn:hover{background:rgba(255,255,255,.11);transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.97)}
+.btn.on{background:rgba(125,205,235,.2);border-color:rgba(125,205,235,.5)}
+
+.legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:12.8px;color:var(--faint);
+  margin:0 4px 12px;font-weight:300;animation:fadeUp .8s .13s both}
+.legend i{display:inline-block;width:22px;height:8px;border-radius:4px;margin-right:7px;vertical-align:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;animation:fadeUp .8s .16s both}
+.chip{display:inline-flex;align-items:center;gap:9px;padding:8px 15px;border-radius:999px;cursor:pointer;
+  font-size:13px;font-weight:500;color:var(--ink);font-family:inherit;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);backdrop-filter:blur(14px);
+  transition:transform .22s,background .28s,border-color .28s}
+.chip:hover{transform:translateY(-2px);background:rgba(255,255,255,.1)}
+.chip .dot{width:10px;height:10px;border-radius:50%;box-shadow:0 0 8px currentColor}
+.chip.on{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3)}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:18px;align-items:start}
+@media(max-width:1020px){.layout{grid-template-columns:1fr}}
+.stage{padding:16px;animation:fadeUp .85s .22s both}
+.viewbtns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.viewbtns .btn{padding:8px 14px;font-size:13px;border-radius:11px}
+svg#fish{width:100%;height:auto;display:block;border-radius:14px;
+  background:radial-gradient(ellipse at 45% 42%,rgba(120,180,225,.13),rgba(7,15,24,.55) 74%);
+  border:1px solid rgba(255,255,255,.07)}
+.hint{margin:12px 6px 2px;font-size:13px;color:var(--muted);font-weight:300}
+kbd{background:rgba(255,255,255,.11);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:12px}
+
+/* ---------- SVG ---------- */
+.bone{cursor:pointer;transition:opacity .24s ease,filter .24s ease}
+svg.focused .bone{opacity:.12}
+svg.focused .bone.on{opacity:1;animation:glow 2.2s ease-in-out infinite}
+@keyframes glow{0%,100%{filter:drop-shadow(0 0 6px currentColor)}50%{filter:drop-shadow(0 0 14px currentColor) drop-shadow(0 0 24px currentColor)}}
+.bone.off{opacity:.05!important;pointer-events:none}
+.hit{stroke:transparent;fill:none;pointer-events:stroke;opacity:0!important}
+.deco{pointer-events:none}
+.numlab{pointer-events:none;opacity:0;transform-box:fill-box;transform-origin:center;transition:opacity .22s}
+svg.shownums .numlab{opacity:.9}
+.numlab.on{opacity:1;animation:pop .35s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{from{transform:scale(.4)}to{transform:scale(1)}}
+.numlab circle{fill:rgba(8,16,26,.92);stroke:rgba(255,255,255,.75);stroke-width:1.5}
+.numlab text{fill:#fff;font:500 11px "Prompt",system-ui;text-anchor:middle;dominant-baseline:central}
+.flow{stroke-dasharray:7 4;animation:flow 2.6s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-22}}
+
+/* ---------- แผงคำอธิบาย ---------- */
+#panel{position:sticky;top:18px;padding:22px;animation:fadeUp .85s .28s both;overflow:hidden}
+#panel::before{content:"";position:absolute;inset:-40% -10% auto -10%;height:180px;
+  background:radial-gradient(closest-side,rgba(130,195,235,.16),transparent);pointer-events:none}
+#panelBody{position:relative;animation:swap .45s ease both}
+@keyframes swap{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+#panel h2{font-family:"Prompt";font-weight:500;font-size:20px;margin:0 0 10px;line-height:1.5}
+.num-pill{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:9px;margin-left:9px;
+  font:500 12.5px "Prompt";background:rgba(255,255,255,.13);border:1px solid var(--line);vertical-align:-5px}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;padding:5px 13px;
+  border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--line);color:var(--ink);margin-bottom:8px}
+.tag .dot{width:9px;height:9px;border-radius:50%}
+.field{margin:16px 0}
+.field b{display:block;font-size:11.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:4px;font-weight:500}
+.field span{font-size:14.6px;font-weight:300}
+.field.hl{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:13px;padding:12px 14px}
+.muted{color:var(--muted);font-size:14.3px;font-weight:300}
+
+h3.sec{font-family:"Prompt";font-weight:500;font-size:19px;margin:44px 0 4px}
+p.secsub{color:var(--faint);font-size:13.5px;margin:0 0 18px;font-weight:300}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(262px,1fr));gap:13px}
+.bcard{position:relative;padding:15px 16px 15px 19px;border-radius:16px;cursor:pointer;overflow:hidden;
+  background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(16px);
+  transition:transform .3s cubic-bezier(.2,.8,.3,1),background .3s,box-shadow .3s,border-color .3s;animation:fadeUp .6s both}
+.bcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--bc);opacity:.9}
+.bcard:hover{transform:translateY(-5px);background:var(--glass2);box-shadow:0 18px 38px rgba(2,10,22,.48);border-color:rgba(255,255,255,.2)}
+.bcard.sel{border-color:var(--bc);background:var(--glass2)}
+.bcard .no{font:500 11px "Prompt";color:var(--faint)}
+.bcard h4{margin:3px 0 5px;font-family:"Prompt";font-size:15px;font-weight:500}
+.bcard p{margin:0;font-size:12.8px;color:var(--muted);font-weight:300}
+
+#tip{position:fixed;pointer-events:none;z-index:60;padding:7px 13px;border-radius:10px;font-size:13px;font-weight:500;
+  background:rgba(10,20,32,.86);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px);
+  opacity:0;transform:translateY(6px);transition:opacity .16s,transform .16s;white-space:nowrap}
+#tip.show{opacity:1;transform:translateY(0)}
+
+#quizbar{display:none;align-items:center;gap:16px;flex-wrap:wrap;padding:15px 19px;margin-bottom:16px;
+  background:rgba(125,205,235,.12);border:1px solid rgba(125,205,235,.28);
+  border-radius:var(--radius);backdrop-filter:blur(20px)}
+#quizbar.on{display:flex;animation:fadeUp .45s both}
+#quizbar .q{font-family:"Prompt";font-weight:500;font-size:16px}
+#quizbar .fb{font-size:13.8px;font-weight:500}
+footer{color:var(--faint);font-size:12.5px;padding:24px 20px 56px;font-weight:300}
+::-webkit-scrollbar{width:10px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:10px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bgfx"></div><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<header class="wrap">
+  <h1>แผนภาพโครงกระดูกปลานิล</h1>
+  <p>สื่อการเรียนรู้แบบอินเทอร์แอกทีฟ · <i>Oreochromis niloticus</i> · กระดูก 42 ชิ้น พร้อมคำอธิบายว่าคืออะไร ทำหน้าที่อะไร และอยู่ตรงไหน</p>
+  <div class="rule"></div>
+</header>
+
+<main class="wrap">
+  <div class="toolbar glass">
+    <input type="search" id="search" placeholder="ค้นหากระดูก…  เช่น แผ่นปิดเหงือก, ซี่โครง, ครีบหาง">
+    <button class="btn" id="numsBtn">แสดงหมายเลข</button>
+    <button class="btn" id="quizBtn">โหมดทดสอบ</button>
+    <button class="btn" id="resetBtn">เริ่มใหม่</button>
+  </div>
+
+  <div id="quizbar">
+    <span class="q">ค้นหา: <span id="qName">—</span></span>
+    <span class="fb" id="qFeed"></span>
+    <span style="margin-left:auto;font-size:14px;font-weight:300">คะแนน <b id="qScore">0 / 0</b></span>
+    <button class="btn" id="qSkip">ข้าม →</button>
+  </div>
+
+  <div class="legend">
+    <span><i style="background:linear-gradient(90deg,#F0C784,#E2A06E)"></i>โทนอุ่น = กระดูกส่วนหัว</span>
+    <span><i style="background:linear-gradient(90deg,#7FCFE4,#8AA6E8)"></i>โทนเย็น = กระดูกลำตัวและครีบ</span>
+  </div>
+
+  <div class="chips" id="chips"></div>
+
+  <div class="layout">
+    <section class="glass stage">
+      <div class="viewbtns">
+        <button class="btn on" data-view="all">ทั้งตัว</button>
+        <button class="btn" data-view="head">หัวและขากรรไกร</button>
+        <button class="btn" data-view="trunk">ลำตัวและซี่โครง</button>
+        <button class="btn" data-view="tail">ส่วนหาง</button>
+      </div>
+      <svg id="fish" viewBox="80 80 950 380" role="img" aria-label="แผนภาพโครงกระดูกปลานิลแบบ 2 มิติ"></svg>
+      <p class="hint">คลิกเพื่อปักหมุดกระดูกชิ้นนั้น · กด <kbd>Esc</kbd> เพื่อล้าง · ซี่โครง ข้อกระดูกสันหลัง และก้านครีบจะสว่างพร้อมกันทั้งชุด</p>
+    </section>
+
+    <aside class="glass" id="panel">
+      <div id="panelBody">
+        <h2>เริ่มสำรวจได้เลย</h2>
+        <p class="muted">เลื่อนเมาส์ไปบนโครงกระดูก คำอธิบายจะขึ้นตรงนี้ทันที · เลือกชิปด้านบนเพื่อดูเฉพาะกลุ่ม หรือเปิดโหมดทดสอบเพื่อฝึกความจำ</p>
+        <div class="field hl"><b>รู้หรือไม่</b><span>ปลานิลมีกระดูกสันหลังราว <b>30–32 ข้อ</b>, หนามครีบหลัง <b>15–18 ก้าน</b> ตามด้วยก้านครีบอ่อน 11–13 ก้าน และ <b>หนามครีบก้น 3 ก้าน</b> — ตัวเลขชุดนี้คือลักษณะที่นักวิทยาศาสตร์ใช้จำแนกชนิดปลา</span></div>
+      </div>
+    </aside>
+  </div>
+
+  <h3 class="sec">กระดูกทั้งหมด 42 ชิ้น</h3>
+  <p class="secsub">คลิกการ์ดใดก็ได้เพื่อไฮไลต์บนแผนภาพ</p>
+  <div class="grid" id="cards"></div>
+</main>
+
+<div id="tip"></div>
+<footer class="wrap">สื่อเพื่อการศึกษา — สัดส่วนปรับให้เข้าใจง่าย ชื่อกระดูกอ้างอิงตำรากายวิภาคปลากระดูกแข็ง (teleost osteology)</footer>
+
+<script>
+const NS="http://www.w3.org/2000/svg";
+const mk=(t,a={})=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const lighten=(h,p)=>{const n=parseInt(h.slice(1),16);let r=n>>16,g=(n>>8)&255,b=n&255;
+  r=Math.round(r+(255-r)*p);g=Math.round(g+(255-g)*p);b=Math.round(b+(255-b)*p);
+  return"#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);};
+
+/* ปาเลตต์เรียบ 2 ตระกูล : อุ่น = หัว / เย็น = ลำตัว */
+const GROUPS={
+ cranium:{name:"กะโหลกและจะงอยปาก",c:"#F0C784"},
+ jaws:{name:"ขากรรไกรและช่องปาก",c:"#E9A46E"},
+ opercular:{name:"ชุดแผ่นปิดเหงือก",c:"#EBD3A4"},
+ hyoid:{name:"กระดูกไฮออยด์และใต้คาง",c:"#D9926F"},
+ spine:{name:"กระดูกสันหลัง",c:"#7FCFE4"},
+ ribs:{name:"ซี่โครงและก้างแทรกกล้ามเนื้อ",c:"#5EA3D9"},
+ pectoral:{name:"กระดูกไหล่และครีบอก",c:"#5FC6AE"},
+ pelvic:{name:"กระดูกเชิงกรานและครีบท้อง",c:"#A8DCC2"},
+ median:{name:"โครงค้ำครีบหลังและครีบก้น",c:"#8AA6E8"},
+ caudal:{name:"โครงกระดูกหาง",c:"#A89CE6"}
+};
+
+const BONES=[
+{id:"frontal",n:1,name:"กระดูกฟรอนทัล (หลังคากะโหลก)",g:"cranium",a:[248,192],
+ what:"แผ่นกระดูกแบนขนาดใหญ่ที่เป็นหลังคาของกะโหลก รวมกับกระดูกข้างเคียงเป็น “กล่องสมอง” (neurocranium)",
+ job:"ปกป้องสมองและอวัยวะทรงตัว พร้อมเป็นฐานแข็งแรงให้กระดูกหัวชิ้นอื่นยึดเกาะ",
+ where:"ด้านบนของหัว ระหว่างและหลังลูกตาทั้งสองข้าง"},
+{id:"supraocc",n:2,name:"สันกระดูกท้ายทอย (Supraoccipital crest)",g:"cranium",a:[324,158],
+ what:"สันกระดูกรูปใบมีดที่ยกขึ้นจากด้านท้ายของกล่องสมอง",
+ job:"เป็นจุดเกาะของกล้ามเนื้อต้นคอและหลังที่ใช้ “เงยหัว” ตอนงับอาหาร",
+ where:"ท้ายกะโหลก ก่อนถึงกระดูกสันหลังข้อแรก"},
+{id:"nasal",n:3,name:"กระดูกนาซาล (แอ่งจมูก)",g:"cranium",a:[142,236],
+ what:"กระดูกชิ้นเล็กเป็นคู่ คลุมแอ่งรับกลิ่นบนจะงอยปาก",
+ job:"ปกป้องอวัยวะรับกลิ่น ซึ่งปลานิลใช้หาอาหารและตรวจคุณภาพน้ำ",
+ where:"บนจะงอยปาก ด้านหน้าและเหนือลูกตาเล็กน้อย"},
+{id:"vomer",n:4,name:"โวเมอร์และเอทมอยด์",g:"cranium",a:[122,264],
+ what:"กระดูกชุดหน้าสุดของพื้นกล่องสมอง ในปลาหมอสีบางชนิดมีฟันเม็ดเล็กติดอยู่",
+ job:"ประกอบเป็นเพดานปาก และค้ำขากรรไกรบนไม่ให้ยุบเวลางับอาหาร",
+ where:"ปลายจะงอยปาก อยู่ภายในส่วนหน้าของกะโหลก"},
+{id:"parasph",n:5,name:"พาราสฟีนอยด์",g:"cranium",a:[228,272],
+ what:"กระดูกรูปแถบยาวพาดตลอดความยาวฐานกะโหลก",
+ job:"ทำหน้าที่เหมือน “กระดูกงูเรือ” รับแรงดึงไม่ให้กะโหลกบิดตัวตอนกัดแรง ๆ",
+ where:"พื้นของกล่องสมอง ลอดใต้เบ้าตาพอดี"},
+{id:"orbit",n:6,name:"วงกระดูกรอบเบ้าตา (Infraorbital)",g:"cranium",a:[186,200],
+ what:"กระดูกบางโค้งหลายชิ้นต่อกันเป็นวงล้อมลูกตา รวมถึงกระดูกแลคริมัลด้านหน้า",
+ job:"กำบังลูกตา และเป็นทางเดินของเส้นรับสัมผัส (lateral-line) บนหัว",
+ where:"ล้อมรอบเบ้าตาเป็นวงแหวน"},
+{id:"premax",n:7,name:"พรีแม็กซิลลา (ขากรรไกรบนชิ้นหน้า)",g:"jaws",a:[128,258],
+ what:"กระดูกขากรรไกรบนที่มีฟัน ในปลานิลเลื่อนยื่นออกได้ด้วยแกนกระดูกที่ชี้ขึ้น",
+ job:"ยื่นปากออกเป็นท่อดูด — กลไก “ปากยืดได้” ที่ทำให้ปลานิลแทะสาหร่ายจากผิววัสดุได้",
+ where:"ขอบบนสุดด้านหน้าของปาก"},
+{id:"maxilla",n:8,name:"แม็กซิลลา",g:"jaws",a:[148,286],
+ what:"กระดูกขากรรไกรบนชิ้นที่สอง อยู่หลังและใต้พรีแม็กซิลลา ในปลาหมอสีไม่มีฟัน",
+ job:"ทำงานเป็นคานงัดดันพรีแม็กซิลลาให้ยื่น และปิดมุมปากให้สนิทตอนดูด",
+ where:"ขากรรไกรบน ระหว่างปลายปากกับแก้ม"},
+{id:"dentary",n:9,name:"เดนทารี (กระดูกขากรรไกรล่าง)",g:"jaws",a:[136,314],
+ what:"กระดูกหลักของขากรรไกรล่าง มีฟันเม็ดเล็กเรียงเป็นแถว",
+ job:"กัด ขูด และครูดสาหร่ายกับเศษอินทรีย์ — เป็นคมทำงานของขากรรไกรล่าง",
+ where:"ครึ่งหน้าของขากรรไกรล่าง"},
+{id:"artic",n:10,name:"แองกูโล-อาร์ทิคูลาร์",g:"jaws",a:[190,330],
+ what:"ก้อนกระดูกด้านท้ายของขากรรไกรล่าง เกิดจากกระดูกแองกูลาร์เชื่อมกับอาร์ทิคูลาร์",
+ job:"มีเบ้าข้อต่อให้ปากอ้า-หุบได้ และเป็นจุดเกาะของกล้ามเนื้อหุบปาก",
+ where:"ท้ายขากรรไกรล่าง ใต้ลูกตา"},
+{id:"quad",n:11,name:"ควอเดรต",g:"jaws",a:[224,302],
+ what:"กระดูกรูปสามเหลี่ยมที่ปลายล่างมีปุ่มกลม ทำหน้าที่แขวนขากรรไกร",
+ job:"เป็นบานพับจริงของปาก — ขากรรไกรล่างแกว่งบนปุ่มนี้เหมือนประตูบนสลัก",
+ where:"บริเวณแก้ม ด้านหน้าของกระดูกพรีโอเพอร์เคิล"},
+{id:"palat",n:12,name:"พาลาทีน (เพดานปาก)",g:"jaws",a:[188,268],
+ what:"แท่งกระดูกสั้นที่เชื่อมขากรรไกรบนเข้ากับกล่องสมอง",
+ job:"ค้ำขากรรไกรบนด้านข้างไม่ให้บิดตอนกระชากอาหารที่ติดแน่น",
+ where:"เพดานปาก ด้านหน้าลูกตา"},
+{id:"hyomand",n:13,name:"ไฮโอแมนดิบูลา",g:"jaws",a:[266,226],
+ what:"เสาค้ำแนวตั้งที่แข็งแรง — เป็น “ตัวแขวน” หลักของชุดขากรรไกร",
+ job:"กางออกด้านข้างเพื่อขยายช่องปาก สร้างแรงดูดที่ลากน้ำและอาหารเข้าปาก",
+ where:"หลังลูกตา ทอดจากกล่องสมองลงมาถึงข้อต่อขากรรไกร"},
+{id:"pharyn",n:14,name:"ฟันคอหอยล่าง (Lower pharyngeal jaw)",g:"jaws",a:[300,330],
+ what:"แผ่นกระดูกสามเหลี่ยมปกคลุมด้วยฟัน — เอกลักษณ์ของปลาวงศ์หมอสีอย่างปลานิล (ในภาพวาดทะลุแผ่นปิดเหงือก)",
+ job:"เป็น “ขากรรไกรชุดที่สอง” ที่บดสาหร่าย พืช และสัตว์เล็กหลังจากปากงับเข้ามา ทำให้ปลานิลกินได้แทบทุกอย่าง",
+ where:"ลึกในลำคอ ด้านหลังซี่เหงือก"},
+{id:"preop",n:15,name:"พรีโอเพอร์เคิล",g:"opercular",a:[260,320],
+ what:"กระดูกรูปตัว L (คล้ายบูมเมอแรง) อยู่ขอบหน้าสุดของแผ่นปิดเหงือก",
+ job:"ปกป้องข้อต่อขากรรไกร และเป็นทางผ่านของท่อรับสัมผัสที่ตรวจจับการไหวของน้ำ",
+ where:"บริเวณแก้ม ระหว่างลูกตากับแผ่นปิดเหงือก"},
+{id:"opercle",n:16,name:"โอเพอร์เคิล (แผ่นปิดเหงือก)",g:"opercular",a:[318,250],
+ what:"แผ่นกระดูกแบนใหญ่ที่เราเรียกกันว่ากระพุ้งแก้มหรือฝาปิดเหงือก",
+ job:"เปิด-ปิดเหมือนวาล์วเพื่อสูบน้ำผ่านเหงือก — เป็นวิธีหายใจของปลาที่อยู่นิ่ง ๆ",
+ where:"ด้านท้ายของหัว คลุมช่องเหงือกไว้"},
+{id:"subop",n:17,name:"ซับโอเพอร์เคิล",g:"opercular",a:[314,308],
+ what:"แผ่นกระดูกเรียวใต้โอเพอร์เคิล อยู่ในชุดเดียวกันทั้งสี่ชิ้น",
+ job:"ปิดผนึกช่องเหงือกด้านล่าง ทำให้น้ำถูกดันออกทางท้ายเสมอ ไม่ไหลย้อนกลับ",
+ where:"ใต้แผ่นปิดเหงือก บริเวณท้ายล่างของหัว"},
+{id:"interop",n:18,name:"อินเตอร์โอเพอร์เคิล",g:"opercular",a:[276,344],
+ what:"กระดูกชิ้นที่สี่ของชุดแผ่นปิดเหงือก เชื่อมฝาเหงือกเข้ากับขากรรไกรล่าง",
+ job:"ส่งแรงดึงให้ขากรรไกรล่างตกลง — เป็นสะพานเชื่อมระหว่างการหายใจกับการกินอาหาร",
+ where:"ระหว่างขากรรไกรล่างกับซับโอเพอร์เคิล"},
+{id:"cerato",n:19,name:"เซอราโตไฮอัล (แกนไฮออยด์)",g:"hyoid",a:[218,352],
+ what:"แท่งกระดูกหลักของชุดไฮออยด์ — เปรียบเป็นโครงของ “พื้นปาก”",
+ job:"กดลงเพื่อขยายช่องปากสร้างแรงดูด แล้วยกขึ้นเพื่อดันน้ำออกผ่านเหงือก",
+ where:"ใต้หัว ระหว่างขากรรไกรล่างทั้งสองข้าง"},
+{id:"branchio",n:20,name:"ก้านแบรงคิโอสทีกัล",g:"hyoid",a:[290,384],
+ what:"แท่งบางโค้งเรียงเป็นพัดห้อยจากแกนไฮออยด์ ซ่อนอยู่ใต้แผ่นปิดเหงือก",
+ job:"ขึงเยื่อยืดหยุ่นปิดก้นช่องเหงือก ทำงานเหมือนลูกสูบหีบเพลง",
+ where:"ใต้คาง ด้านหลังขากรรไกรล่าง"},
+{id:"urohyal",n:21,name:"ยูโรไฮอัล",g:"hyoid",a:[194,372],
+ what:"แผ่นกระดูกเดี่ยวตั้งอยู่แนวกึ่งกลางใต้คาง",
+ job:"เป็นจุดเกาะกล้ามเนื้อที่กระชากชุดไฮออยด์ไปด้านหลัง-ล่าง ทำให้ปากอ้าได้เร็วมาก",
+ where:"แนวกึ่งกลางใต้คาง ใต้แกนไฮออยด์"},
+{id:"centrum",n:22,name:"เซนทรัม (ตัวกระดูกสันหลัง)",g:"spine",a:[520,268],
+ what:"ตัวกระดูกรูปนาฬิกาทรายของแต่ละข้อ ปลานิลมีราว 30–32 ข้อเรียงต่อกัน",
+ job:"เป็นแกนกลางลำตัว แข็งพอจะส่งแรงจากกล้ามเนื้อ แต่ยืดหยุ่นระหว่างข้อให้ลำตัวสะบัดเป็นคลื่นได้",
+ where:"เรียงเป็นสายตรงจากท้ายกะโหลกไปจนถึงโคนหาง"},
+{id:"neural",n:23,name:"นิวรัลอาร์ชและหนามประสาท",g:"spine",a:[470,190],
+ what:"ซุ้มโค้งบนหลังกระดูกสันหลังแต่ละข้อ ยืดขึ้นเป็นหนามยาว",
+ job:"ซุ้มโค้งเป็นอุโมงค์ปกป้องไขสันหลัง ส่วนหนามเป็นจุดเกาะกล้ามเนื้อว่ายน้ำมัดใหญ่ด้านหลัง",
+ where:"เหนือกระดูกสันหลังทุกข้อ ชี้ขึ้นและเอียงไปทางหางเล็กน้อย"},
+{id:"hemal",n:24,name:"ฮีมัลอาร์ชและหนามเลือด",g:"spine",a:[716,326],
+ what:"ภาพสะท้อนกลับด้านของนิวรัลอาร์ช พบเฉพาะกระดูกสันหลังช่วงหาง",
+ job:"หุ้มและปกป้องหลอดเลือดแดง-ดำหลักของหาง พร้อมเป็นจุดเกาะกล้ามเนื้อด้านล่าง",
+ where:"ใต้กระดูกสันหลังถัดจากช่องท้องไปทางหาง"},
+{id:"rib",n:25,name:"ซี่โครง (Pleural ribs)",g:"ribs",a:[428,344],
+ what:"กระดูกโค้งห้อยจากกระดูกสันหลังช่วงลำตัว — คือก้างใหญ่ที่เจอตอนกินปลานิล",
+ job:"ประกอบเป็นตะกร้าค้ำผนังลำตัวและป้องกันลำไส้ ถุงลม และอวัยวะภายใน",
+ where:"รอบช่องท้อง ตั้งแต่หลังครีบอกจนถึงรูก้น"},
+{id:"epipleural",n:26,name:"ก้างแทรกกล้ามเนื้อ (Epipleural)",g:"ribs",a:[566,226],
+ what:"ก้างเล็กเรียวเหมือนเข็ม ฝังในเนื้อ ไม่ได้ต่อกับกระดูกสันหลังโดยตรง",
+ job:"เพิ่มความแข็งให้มัดกล้ามเนื้อ เพื่อส่งแรงสู่การสะบัดหางได้เต็มที่ — และคือก้างเส้นเล็กที่ทำให้กินยาก",
+ where:"กระจายอยู่ในเนื้อเหนือและตามแนวซี่โครง"},
+{id:"posttemp",n:27,name:"โพสต์เทมโพรัล",g:"pectoral",a:[316,150],
+ what:"กระดูกปลายแยกเป็นสองแฉก ยึดกระดูกไหล่เข้ากับท้ายกะโหลก",
+ job:"ล็อกชุดกระดูกครีบเข้ากับหัว เพื่อให้แรงจากครีบอกถ่ายไปทั้งตัว",
+ where:"มุมบนด้านท้ายของกะโหลก"},
+{id:"supracl",n:28,name:"ซูปราคลีทรัม",g:"pectoral",a:[348,172],
+ what:"แผ่นกระดูกสั้นคั่นระหว่างโพสต์เทมโพรัลกับคลีทรัม",
+ job:"ต่อโซ่กระดูกที่แขวนชุดไหล่ไว้กับกะโหลกให้สมบูรณ์",
+ where:"ถัดจากขอบบนของแผ่นปิดเหงือกไปด้านหลัง"},
+{id:"cleith",n:29,name:"คลีทรัม",g:"pectoral",a:[366,214],
+ what:"กระดูกชิ้นใหญ่สุดของชุดไหล่ เป็นเสาโค้งแข็งแรง",
+ job:"ค้ำครีบอกเป็นหลัก และเป็นผนังด้านท้ายของช่องเหงือก กล้ามเนื้อหัวหลายมัดดึงที่กระดูกนี้",
+ where:"ถัดจากแผ่นปิดเหงือกทันที โค้งจากด้านหลังลงมาถึงท้อง"},
+{id:"scapcor",n:30,name:"สแคปูลาและคอราคอยด์",g:"pectoral",a:[372,276],
+ what:"แผ่นกระดูกคู่ที่อยู่ด้านในของคลีทรัม",
+ job:"เป็นผิวข้อต่อของครีบอก และช่วยกระจายแรงจากกล้ามเนื้อครีบ",
+ where:"ด้านในชุดกระดูกไหล่ ตรงโคนครีบอก"},
+{id:"radials",n:31,name:"เรเดียลครีบอก (Actinost)",g:"pectoral",a:[398,276],
+ what:"กระดูกก้อนเล็กสี่ชิ้นเรียงกันเป็นแถว",
+ job:"ทำหน้าที่เหมือนข้อมือ ให้ครีบบิดและพลิกได้ละเอียด ใช้ลอยตัวอยู่กับที่",
+ where:"ระหว่างแผ่นกระดูกไหล่กับก้านครีบ"},
+{id:"pectrays",n:32,name:"ก้านครีบอก",g:"pectoral",a:[462,282],
+ what:"ก้านอ่อนเป็นปล้องและแตกแขนง (lepidotrichia) ที่ขึงแผ่นครีบไว้",
+ job:"ใช้เลี้ยว เบรก ลอยนิ่ง และพายไปข้างหน้าช้า ๆ — เปรียบได้กับ “มือ” ของปลา",
+ where:"ข้างลำตัว ถัดจากแผ่นปิดเหงือก"},
+{id:"basipt",n:33,name:"เบซิพเทอริเจียม (กระดูกเชิงกราน)",g:"pelvic",a:[354,340],
+ what:"แผ่นกระดูกสามเหลี่ยมเป็นคู่ — คือเชิงกรานทั้งหมดของปลา ซึ่งไม่ได้ต่อกับกระดูกสันหลัง",
+ job:"ค้ำครีบท้องและเป็นจุดออกแรงของกล้ามเนื้อครีบ",
+ where:"ฝังในผนังท้อง ถัดลงมาด้านหลังคลีทรัม"},
+{id:"pelvic",n:34,name:"หนามและก้านครีบท้อง",g:"pelvic",a:[404,404],
+ what:"หนามแข็งนำหน้า 1 ก้าน ตามด้วยก้านอ่อนแตกแขนงอีก 5 ก้าน",
+ job:"กันลำตัวโคลงซ้าย-ขวา ช่วยหยุดและเลี้ยว และปลานิลยังใช้พัดทำความสะอาดรังวางไข่",
+ where:"ใต้ท้อง บริเวณใต้ช่วงอก"},
+{id:"dpteryg",n:35,name:"พเทอริโจฟอร์ครีบหลัง",g:"median",a:[610,210],
+ what:"กระดูกค้ำแนวตั้ง (ชิ้นต้น ชิ้นกลาง ชิ้นปลาย) ฝังอยู่ในสันหลัง",
+ job:"ถ่ายแรงที่กระทำต่อครีบหลังเข้าสู่ลำตัว และคงครีบให้ตั้งนิ่ง",
+ where:"ในเนื้อสันหลัง ระหว่างหนามประสาทกับโคนครีบ"},
+{id:"dspine",n:36,name:"หนามครีบหลัง",g:"median",a:[452,100],
+ what:"หนามแข็งปลายแหลม ไม่เป็นปล้อง จำนวน 15–18 ก้าน จับแล้วรู้สึกคม",
+ job:"ใช้ป้องกันตัว — กางขึ้นเป็นรั้วหนามทำให้ผู้ล่ากลืนได้ยาก",
+ where:"ส่วนหน้าที่ยาวของครีบบนสันหลัง"},
+{id:"drays",n:37,name:"ก้านครีบหลังส่วนอ่อน",g:"median",a:[792,146],
+ what:"ก้านยืดหยุ่นเป็นปล้องและแตกแขนง 11–13 ก้าน ต่อจากแถวหนาม",
+ job:"ปรับสมดุลอย่างละเอียด และเพิ่มแรงขับตอนเลี้ยวหรือเคลื่อนที่ช้า",
+ where:"ส่วนท้ายของครีบหลัง เหนือช่วงโคนหาง"},
+{id:"apteryg",n:38,name:"พเทอริโจฟอร์ครีบก้น",g:"median",a:[664,350],
+ what:"ชุดกระดูกค้ำภายในของครีบก้น เป็นภาพสะท้อนของชุดครีบหลัง",
+ job:"ยึดครีบก้นให้ทำหน้าที่เป็นกระดูกงูกันลำตัวโคลง",
+ where:"ใต้ช่วงหาง ระหว่างหนามเลือดกับโคนครีบ"},
+{id:"anal",n:39,name:"หนามและก้านครีบก้น",g:"median",a:[756,412],
+ what:"หนามแข็ง 3 ก้าน ตามด้วยก้านอ่อน 9–11 ก้าน — “หนามครีบก้น 3 ก้าน” เป็นลักษณะเด่นของปลาวงศ์หมอสี",
+ job:"เป็นกระดูกงูกันลำตัวพลิกหมุน และช่วยป้องกันตัวจากด้านล่าง",
+ where:"ใต้ลำตัว ถัดจากรูก้นไปทางหาง"},
+{id:"hypural",n:40,name:"แผ่นไฮพูรัล (Hypural plate)",g:"caudal",a:[856,300],
+ what:"กระดูกแบนหลายชิ้นเชื่อมกันเป็นรูปพัดที่ปลายสุดของกระดูกสันหลัง",
+ job:"เป็นแผ่นส่งกำลังที่กระจายแรงจากข้อสุดท้ายไปทั่วทั้งครีบหาง",
+ where:"ที่โคนครีบหาง ภายในคอดหาง"},
+{id:"urostyle",n:41,name:"ยูโรสไตล์และพรีอูรัลเซนทรัม",g:"caudal",a:[822,248],
+ what:"กระดูกสันหลังข้อท้าย ๆ ที่เชื่อมกันและเชิดขึ้นด้านบน",
+ job:"ปิดท้ายแนวกระดูกสันหลัง และเป็นแกนแข็งให้แผ่นไฮพูรัลยึดเกาะ",
+ where:"ปลายสุดของกระดูกสันหลัง เอียงขึ้นเล็กน้อย"},
+{id:"caudrays",n:42,name:"ก้านครีบหาง",g:"caudal",a:[944,286],
+ what:"ก้านเป็นปล้องราว 16–18 ก้าน ขึงเป็นครีบหางปลายตัดของปลานิล",
+ job:"เป็นเครื่องยนต์หลัก — การสะบัดหางซ้าย-ขวาสร้างแรงขับเกือบทั้งหมดของปลา",
+ where:"ครีบหาง ถัดจากคอดหางไปด้านท้าย"}
+];
+const byId=Object.fromEntries(BONES.map(b=>[b.id,b]));
+
+const TOP=[[300,150],[360,138],[440,136],[520,146],[600,168],[680,196],[760,222],[835,244]];
+const BOT=[[300,372],[360,394],[440,404],[520,402],[600,388],[680,362],[760,334],[835,306]];
+function sm(p,x){if(x<=p[0][0])return p[0][1];if(x>=p[p.length-1][0])return p[p.length-1][1];
+ for(let i=0;i<p.length-1;i++){const a=p[i],b=p[i+1];
+  if(x>=a[0]&&x<=b[0]){const t=(x-a[0])/(b[0]-a[0]),s=t*t*(3-2*t);return a[1]+(b[1]-a[1])*s;}}}
+const topY=x=>sm(TOP,x),botY=x=>sm(BOT,x),midY=x=>topY(x)+.45*(botY(x)-topY(x));
+
+const svg=document.getElementById("fish");
+const defs=mk("defs");
+defs.innerHTML=`<linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+ <stop offset="0" stop-color="rgba(255,255,255,.11)"/><stop offset="1" stop-color="rgba(150,195,235,.04)"/></linearGradient>`;
+svg.appendChild(defs);
+const L={};["body","median","caudal","axial","pectoral","pelvic","head","deco","labels"].forEach(k=>{L[k]=mk("g");svg.appendChild(L[k]);});
+
+function shape(layer,tag,at,id){const b=byId[id],c=GROUPS[b.g].c;
+ const e=mk(tag,Object.assign({fill:c,"fill-opacity":.7,stroke:lighten(c,.35),"stroke-width":1,
+  "stroke-linejoin":"round",color:c},at));
+ e.setAttribute("class","bone");e.dataset.id=id;L[layer].appendChild(e);return e;}
+function line(layer,d,id,w=3,flow=false){const b=byId[id],c=GROUPS[b.g].c;
+ const e=mk("path",{d,fill:"none",stroke:c,"stroke-width":w,"stroke-linecap":"round",color:c,"stroke-opacity":.9});
+ e.setAttribute("class","bone"+(flow?" flow":""));e.dataset.id=id;L[layer].appendChild(e);
+ const h=mk("path",{d,"stroke-width":Math.max(12,w+9)});h.setAttribute("class","bone hit");h.dataset.id=id;L[layer].appendChild(h);}
+const poly=(l,p,id)=>shape(l,"polygon",{points:p},id);
+
+(function(){let d="M100,272 C104,238 128,202 168,180 C206,158 252,150 300,150 ";
+ for(let x=300;x<=835;x+=8)d+=`L${x},${topY(x).toFixed(1)} `;d+="L835,306 ";
+ for(let x=835;x>=300;x-=8)d+=`L${x},${botY(x).toFixed(1)} `;
+ d+="C252,372 206,360 168,342 C128,320 104,304 100,272 Z";
+ L.body.appendChild(mk("path",{d,fill:"url(#bodyGrad)",stroke:"rgba(255,255,255,.22)","stroke-width":1.6,class:"deco"}));
+ let ll="M330,250 ";for(let x=330;x<=820;x+=10)ll+=`L${x},${(midY(x)-26).toFixed(1)} `;
+ L.body.appendChild(mk("path",{d:ll,fill:"none",stroke:"rgba(255,255,255,.18)","stroke-width":1.2,"stroke-dasharray":"5 7",class:"deco"}));})();
+
+const NV=25,VX0=360,VX1=828,VS=(VX1-VX0)/(NV-1);
+for(let i=0;i<NV;i++){const cx=VX0+i*VS,cy=midY(cx),w=7.6,h=10.5;
+ poly("axial",`${cx-w},${cy-h} ${cx},${cy-h*.45} ${cx+w},${cy-h} ${cx+w},${cy+h} ${cx},${cy+h*.45} ${cx-w},${cy+h}`,"centrum");
+ line("axial",`M${cx-1},${cy-h+1} L${cx+14},${Math.min(topY(cx)+58,cy-14)}`,"neural",3.2);
+ if(i>=2&&i<=12){const by=botY(cx)-16;line("axial",`M${cx},${cy+h-1} Q${cx+6},${cy+(by-cy)*.55} ${cx+24},${by}`,"rib",2.8);}
+ if(i>=13)line("axial",`M${cx-1},${cy+h-1} L${cx+14},${Math.max(botY(cx)-52,cy+14)}`,"hemal",3.2);
+ if(i>=2&&i<=15)line("axial",`M${cx+10},${cy-16} L${cx+46},${cy-36}`,"epipleural",1.9);}
+
+for(let i=0;i<16;i++){const x=370+i*18,base=topY(x)+4,len=26+i*2.4;
+ line("median",`M${x+4},${topY(x)+56} L${x+8},${topY(x)+6}`,"dpteryg",2.4);
+ poly("median",`${x-2.6},${base} ${x+2.6},${base} ${x+9},${base-len}`,"dspine");}
+for(let i=0;i<12;i++){const x=655+i*14.8,base=topY(x)+4,len=70-i*2.4;
+ line("median",`M${x+4},${topY(x)+54} L${x+8},${topY(x)+6}`,"dpteryg",2.4);
+ line("median",`M${x},${base} L${x+13},${base-len}`,"drays",2.1,true);
+ line("median",`M${x+13},${base-len} L${x+18},${base-len-7} M${x+13},${base-len} L${x+9},${base-len-8}`,"drays",1.4);}
+for(let i=0;i<3;i++){const x=645+i*15,base=botY(x)-4,len=26+i*9;
+ line("median",`M${x+4},${botY(x)-52} L${x+8},${botY(x)-6}`,"apteryg",2.4);
+ poly("median",`${x-2.6},${base} ${x+2.6},${base} ${x+9},${base+len}`,"anal");}
+for(let i=0;i<10;i++){const x=692+i*13.2,base=botY(x)-4,len=56-i*2.6;
+ line("median",`M${x+4},${botY(x)-50} L${x+8},${botY(x)-6}`,"apteryg",2.4);
+ line("median",`M${x},${base} L${x+12},${base+len}`,"anal",2.1,true);}
+
+poly("caudal","820,252 836,240 842,268 824,272","urostyle");
+for(let k=0;k<5;k++){const y2=238+k*18;
+ poly("caudal",`834,${272+(k-2)*3} 862,${y2} 862,${y2+15} 836,${278+(k-2)*3}`,"hypural");}
+for(let k=0;k<17;k++){const o=k-8;line("caudal",`M860,${276+o*3.6} L1000,${276+o*12.6}`,"caudrays",2.2,true);}
+
+poly("pectoral","298,150 334,140 340,160 306,168","posttemp");
+poly("pectoral","330,160 352,152 358,194 336,198","supracl");
+shape("pectoral","path",{d:"M338,176 C354,218 354,272 334,314 L352,322 C374,274 376,214 358,172 Z"},"cleith");
+poly("pectoral","356,238 388,248 384,300 354,298","scapcor");
+for(let k=0;k<4;k++)shape("pectoral","rect",{x:388,y:250+k*12,width:12,height:9,rx:2},"radials");
+for(let k=0;k<11;k++){const t=k/10;line("pectoral",`M402,${266+t*8} L${470+t*36},${226+t*104}`,"pectrays",2,true);}
+poly("pelvic","342,318 380,330 374,360 344,346","basipt");
+poly("pelvic","370,348 378,346 394,414 386,416","pelvic");
+for(let k=0;k<5;k++){const t=k/4;line("pelvic",`M${376+t*4},352 L${400+t*30},${432-t*10}`,"pelvic",2,true);}
+
+poly("head","152,214 196,186 250,172 300,172 308,200 300,216 248,206 196,222","frontal");
+poly("head","300,172 322,130 342,166 336,198 304,202","supraocc");
+poly("head","148,276 300,250 304,264 152,290","parasph");
+poly("head","118,244 150,224 168,238 138,256","nasal");
+poly("head","100,272 128,250 146,264 120,282","vomer");
+poly("head","102,266 112,246 172,266 168,282","premax");
+poly("head","116,258 180,288 176,304 113,278","maxilla");
+poly("head","170,262 206,258 208,272 172,276","palat");
+poly("head","104,300 168,308 178,328 114,324","dentary");
+poly("head","170,310 212,322 206,344 174,330","artic");
+poly("head","208,288 248,284 214,332","quad");
+poly("head","252,190 278,196 272,268 250,258","hyomand");
+poly("head","256,192 282,198 296,282 272,336 250,330 272,284","preop");
+poly("head","296,200 344,218 340,292 298,286","opercle");
+poly("head","298,290 340,296 334,328 294,320","subop");
+poly("head","270,320 296,324 298,350 264,340","interop");
+poly("head","186,338 252,348 256,366 188,358","cerato");
+poly("head","180,356 214,362 208,380 176,372","urohyal");
+for(let k=0;k<6;k++)line("head",`M248,346 Q${278+k*3},${362+k*7} ${300-k*5},${376+k*5}`,"branchio",2.2);
+L.deco.appendChild(mk("circle",{cx:210,cy:228,r:25,fill:"rgba(200,222,245,.18)",stroke:"rgba(255,255,255,.3)","stroke-width":1.4,class:"deco"}));
+L.deco.appendChild(mk("circle",{cx:206,cy:228,r:10,fill:"rgba(7,14,24,.9)",class:"deco"}));
+shape("deco","circle",{cx:210,cy:228,r:33,fill:"none","stroke-width":6,"stroke-opacity":.85},"orbit");
+shape("deco","polygon",{points:"286,300 324,306 302,344 282,330","stroke-dasharray":"5 3","stroke-width":1.6},"pharyn");
+
+BONES.forEach(b=>{const g=mk("g",{class:"numlab"});g.dataset.lab=b.id;
+ g.appendChild(mk("circle",{cx:b.a[0],cy:b.a[1],r:10.5}));
+ const t=mk("text",{x:b.a[0],y:b.a[1]});t.textContent=b.n;g.appendChild(t);L.labels.appendChild(g);});
+
+/* ---------- การโต้ตอบ ---------- */
+const tip=document.getElementById("tip"),panel=document.getElementById("panelBody");
+let selected=null,hovered=null,filterGroup="all",query="",quiz=false,target=null,score=0,asked=0;
+const active=()=>hovered||selected;
+function render(){
+ const a=active();svg.classList.toggle("focused",!!a);
+ svg.querySelectorAll(".bone").forEach(e=>{const b=byId[e.dataset.id];
+  e.classList.toggle("on",e.dataset.id===a);
+  const vis=(filterGroup==="all"||b.g===filterGroup)&&(!query||b.name.includes(query)||GROUPS[b.g].name.includes(query)||b.what.includes(query));
+  e.classList.toggle("off",!vis);});
+ svg.querySelectorAll(".numlab").forEach(g=>g.classList.toggle("on",g.dataset.lab===a));
+ document.querySelectorAll(".bcard").forEach(c=>{const b=byId[c.dataset.id];
+  const vis=(filterGroup==="all"||b.g===filterGroup)&&(!query||b.name.includes(query)||b.what.includes(query)||b.job.includes(query));
+  c.style.display=vis?"":"none";c.classList.toggle("sel",c.dataset.id===a);});
+ if(a){const b=byId[a];
+  panel.innerHTML=`<span class="tag"><span class="dot" style="background:${GROUPS[b.g].c}"></span>${GROUPS[b.g].name}</span>
+   <h2>${b.name}<span class="num-pill">${b.n}</span></h2>
+   <div class="field"><b>คืออะไร</b><span>${b.what}</span></div>
+   <div class="field"><b>ทำหน้าที่อะไร</b><span>${b.job}</span></div>
+   <div class="field hl"><b>อยู่ตรงไหน</b><span>${b.where}</span></div>`;
+  panel.style.animation="none";void panel.offsetWidth;panel.style.animation="";}
+}
+svg.addEventListener("mouseover",e=>{const id=e.target.dataset.id;if(id){hovered=id;render();
+ tip.textContent=byId[id].n+". "+byId[id].name;tip.classList.add("show");}});
+svg.addEventListener("mousemove",e=>{tip.style.left=Math.min(e.clientX+14,innerWidth-260)+"px";tip.style.top=(e.clientY-40)+"px";});
+svg.addEventListener("mouseout",e=>{if(e.target.dataset.id){hovered=null;tip.classList.remove("show");render();}});
+svg.addEventListener("click",e=>{const id=e.target.dataset.id;if(!id)return;
+ if(quiz)check(id);else{selected=(selected===id?null:id);render();}});
+addEventListener("keydown",e=>{if(e.key==="Escape"){selected=hovered=null;render();}});
+
+const chips=document.getElementById("chips");
+function addChip(label,color,val){const c=document.createElement("button");
+ c.className="chip"+(val==="all"?" on":"");if(color)c.style.color=color;
+ c.innerHTML=(color?`<span class="dot" style="background:${color}"></span>`:"")+`<span style="color:var(--ink)">${label}</span>`;
+ c.onclick=()=>{filterGroup=val;[...chips.children].forEach(x=>x.classList.remove("on"));c.classList.add("on");render();};
+ chips.appendChild(c);}
+addChip("ทุกกลุ่ม","",'all');
+Object.entries(GROUPS).forEach(([k,v])=>addChip(v.name,v.c,k));
+
+const cards=document.getElementById("cards");
+BONES.forEach((b,i)=>{const d=document.createElement("div");d.className="bcard";d.dataset.id=b.id;
+ d.style.setProperty("--bc",GROUPS[b.g].c);d.style.animationDelay=(i%12)*40+"ms";
+ d.innerHTML=`<span class="no">${String(b.n).padStart(2,"0")}</span><h4>${b.name}</h4><p>${b.job}</p>`;
+ d.onclick=()=>{selected=b.id;render();svg.scrollIntoView({behavior:"smooth",block:"center"});};
+ d.onmouseenter=()=>{hovered=b.id;render();};d.onmouseleave=()=>{hovered=null;render();};
+ cards.appendChild(d);});
+
+document.getElementById("search").addEventListener("input",e=>{query=e.target.value.trim();render();});
+document.getElementById("numsBtn").onclick=function(){svg.classList.toggle("shownums");this.classList.toggle("on");};
+document.getElementById("resetBtn").onclick=()=>{selected=hovered=null;query="";filterGroup="all";
+ document.getElementById("search").value="";[...chips.children].forEach((x,i)=>x.classList.toggle("on",i===0));
+ document.querySelectorAll("[data-view]").forEach((x,i)=>x.classList.toggle("on",i===0));setView("all");render();};
+
+const VIEWS={all:[80,80,950,380],head:[90,130,300,290],trunk:[320,110,420,340],tail:[600,120,430,340]};
+let anim=null;
+function setView(k){const to=VIEWS[k],from=svg.getAttribute("viewBox").split(" ").map(Number),t0=performance.now();
+ cancelAnimationFrame(anim);
+ (function step(t){const p=Math.min((t-t0)/520,1),e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+  svg.setAttribute("viewBox",from.map((v,i)=>v+(to[i]-v)*e).join(" "));
+  if(p<1)anim=requestAnimationFrame(step);})(t0);}
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll("[data-view]").forEach(x=>x.classList.remove("on"));b.classList.add("on");setView(b.dataset.view);});
+
+const qbar=document.getElementById("quizbar"),qName=document.getElementById("qName"),
+      qFeed=document.getElementById("qFeed"),qScore=document.getElementById("qScore");
+function nextQ(){target=BONES[Math.floor(Math.random()*BONES.length)];qName.textContent=target.name;qFeed.textContent="";}
+function check(id){asked++;
+ if(id===target.id){score++;qFeed.textContent="✓ ถูกต้อง";qFeed.style.color="#a8e0b8";}
+ else{qFeed.textContent=`✕ ชิ้นที่คลิกคือ ${byId[id].name}`;qFeed.style.color="#e8b0a8";}
+ qScore.textContent=score+" / "+asked;selected=target.id;render();setTimeout(nextQ,1500);}
+document.getElementById("quizBtn").onclick=function(){quiz=!quiz;this.classList.toggle("on");
+ qbar.classList.toggle("on",quiz);
+ if(quiz){score=asked=0;qScore.textContent="0 / 0";nextQ();}else{selected=null;render();}};
+document.getElementById("qSkip").onclick=nextQ;
+render();
+</script>
+</body>
+</html>
